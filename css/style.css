@@ -1,0 +1,63 @@
+*{
+	padding: 0;
+	margin: 0;
+}
+
+/* style.css */
+
+/* CSS cho file TKB.html */
+#studentName,
+#major,
+#batch {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+#numberSelect {
+  margin-bottom: 10px;
+}
+
+#dataTable {
+  margin-bottom: 20px;
+}
+
+#targetCellAddress1,
+#targetCellAddress2 {
+  margin-top: 20px;
+  font-style: italic;
+}
+
+/* CSS cho file xem.html */
+h1 {
+	text-align: center;
+  margin-bottom: 10px;
+}
+
+#studentName,
+#major,
+#batch {
+	text-align: center;
+  	font-weight: bold;
+  	margin-bottom: 10px;
+}
+
+#numberSelect {
+  	margin-bottom: 10px;
+}
+
+#dataTable {
+	border-collapse: collapse;
+	margin-bottom: 20px;
+}
+
+#dataTable th,
+#dataTable td {
+  border: 1px solid black;
+  padding: 8px;
+}
+
+#targetCellAddress1,
+#targetCellAddress2 {
+  margin-top: 20px;
+  font-style: italic;
+}
