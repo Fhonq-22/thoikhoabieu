@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Thời khoá biểu theo ngày</title>
+    <link rel="stylesheet" type="text/css" href="css/xemTheoNgay.css">
+</head>
+<body>
+    <h1>Thông tin sinh viên</h1>
+
+    <div id="studentName"></div>
+    <div id="major"></div>
+    <div id="batch"></div>
+
+    <h1>Lịch theo từng ngày</h1>
+    <span>Chưa cập nhật</span>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var excelData = localStorage.getItem("excelData");
+            var jsonData = JSON.parse(excelData);
+
+
+            var studentName = jsonData[5][2].split("-")[1];
+            var major = jsonData[6][2];
+            var batch = jsonData[7][2];
+
+            // Hiển thị dữ liệu từ ô C6, C7, và C8
+            document.getElementById("studentName").innerHTML = "Tên sinh viên: " + studentName;
+            document.getElementById("major").innerHTML = "Ngành: " + major;
+            document.getElementById("batch").innerHTML = "Khóa: " + batch;
+
+
+        });
+    </script>
+</body>
+</html>
