@@ -25,20 +25,21 @@
         <option value="8">8</option>
         <option value="9">9</option>
     </select>
-
-    <table id="dataTable">
-        <thead>
-            <tr>
-                <th>STT</th>
-                <th>Lớp học phần</th>
-                <th>Giảng viên/Link meet</th>
-                <th>Thứ</th>
-                <th>Tiết học</th>
-                <th>Địa điểm</th>
-            </tr>
-        </thead>
-        <tbody id="dataBody"></tbody>
-    </table>
+    <div class="table-container">
+        <table id="dataTable">
+            <thead>
+                <tr>
+                    <th>STT</th>
+                    <th>Lớp học phần</th>
+                    <th>Giảng viên</th>
+                    <th>Thứ</th>
+                    <th>Tiết học</th>
+                    <th>Địa điểm</th>
+                </tr>
+            </thead>
+            <tbody id="dataBody"></tbody>
+        </table>
+    </div>
 
     <div id="targetCellAddress1"></div>
     <div id="targetCellAddress2"></div>
@@ -83,9 +84,32 @@
                     if(timthaytuanbatdau == 1 && timthaytuanketthuc == 0 && rowData[0]!=null){
                         var tableRow = document.createElement("tr");
 
+                        // for (var j = 0; j < 6; j++) {
+                        //     var tableData = document.createElement("td");
+                        //     tableData.textContent = rowData[j];
+                        //     tableRow.appendChild(tableData);
+                        // }
                         for (var j = 0; j < 6; j++) {
                             var tableData = document.createElement("td");
-                            tableData.textContent = rowData[j];
+                            var value = rowData[j];
+                            if (j === 1) { // Cột thứ 2
+                                var index = value.indexOf("-");
+                                if (index !== -1) {
+                                    value = value.substring(0, index);
+                                }
+                            } else if (j === 2) { // Cột thứ 3
+                                var indexHttp = value.indexOf("http");
+                                var indexMeet = value.indexOf("meet");
+                                if (indexHttp !== -1 && indexMeet !== -1) {
+                                    var index = Math.min(indexHttp, indexMeet);
+                                    value = value.substring(0, index);
+                                } else if (indexHttp !== -1) {
+                                    value = value.substring(0, indexHttp);
+                                } else if (indexMeet !== -1) {
+                                    value = value.substring(0, indexMeet);
+                                }
+                            }
+                            tableData.textContent = value;
                             tableRow.appendChild(tableData);
                         }
 
