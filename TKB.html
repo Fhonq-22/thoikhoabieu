@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Thời khoá biểu</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+    <h1>Tải file excel</h1>
+
+    <form>
+        <input type="file" name="excelFile" onchange="handleFile(event)">
+    </form>
+
+    <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
+    <script>
+        function handleFile(event) {
+            var file = event.target.files[0];
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                var data = new Uint8Array(e.target.result);
+                var workbook = XLSX.read(data, { type: 'array' });
+                var worksheet = workbook.Sheets[workbook.SheetNames[0]];
+
+                // Chuyển đổi dữ liệu từ worksheet thành mảng JSON
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
+
+                // Lưu dữ liệu vào Local Storage
+                localStorage.setItem("excelData", JSON.stringify(jsonData));
+
+                // Chuyển hướng đến trang "xem.html"
+                window.location.href = "xem.html";
+            };
+            reader.readAsArrayBuffer(file);
+        }
+    </script>
+</body>
+</html>
