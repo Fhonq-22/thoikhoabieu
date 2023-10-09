@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Thời khoá biểu theo tuần</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+    <h1>Thông tin sinh viên</h1>
+
+    <div id="studentName"></div>
+    <div id="major"></div>
+    <div id="batch"></div>
+
+    <h1>Lịch theo từng tuần</h1>
+    <span>Tuần:</span>
+    <select id="numberSelect">
+        <option value="0">-</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+    </select>
+
+    <table id="dataTable">
+        <thead>
+            <tr>
+                <th>STT</th>
+                <th>Lớp học phần</th>
+                <th>Giảng viên/Link meet</th>
+                <th>Thứ</th>
+                <th>Tiết học</th>
+                <th>Địa điểm</th>
+            </tr>
+        </thead>
+        <tbody id="dataBody"></tbody>
+    </table>
+
+    <div id="targetCellAddress1"></div>
+    <div id="targetCellAddress2"></div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var excelData = localStorage.getItem("excelData");
+            var jsonData = JSON.parse(excelData);
+
+
+            var studentName = jsonData[5][2].split("-")[1];
+            var major = jsonData[6][2];
+            var batch = jsonData[7][2];
+
+            // Hiển thị dữ liệu từ ô C6, C7, và C8
+            document.getElementById("studentName").innerHTML = "Tên sinh viên: " + studentName;
+            document.getElementById("major").innerHTML = "Ngành: " + major;
+            document.getElementById("batch").innerHTML = "Khóa: " + batch;
+
+
+            // Xử lý sự kiện khi chọn một số trong danh sách
+            var selectElement = document.getElementById("numberSelect");
+            selectElement.addEventListener("change", function() {
+                var selectedNumber = parseInt(selectElement.value);
+                var targetCell1 = "Tuần " + selectedNumber;
+                var targetCell2 = "Tuần " + (selectedNumber + 1);
+
+                // Cập nhật giá trị của targetCell1 và targetCell2
+                document.getElementById("targetCellAddress1").innerHTML = "Địa chỉ ô chứa chuỗi '" + targetCell1+"': null";
+                document.getElementById("targetCellAddress2").innerHTML = "Địa chỉ ô chứa chuỗi '" + targetCell2+"': null";
+
+                var dataTableBody = document.getElementById("dataBody");
+                var startRow = 11;
+                var endRow = 222;
+                var address1=0, address2=0;
+                var timthaytuanbatdau =0, timthaytuanketthuc=0;
+                // Xoá dữ liệu trong bảng trước khi thêm dữ liệu mới
+                dataTableBody.innerHTML = "";
+                for (var i = 0; i < endRow - startRow + 1; i++) {
+                    var rowData = jsonData[i + startRow - 1];
+
+                    if(timthaytuanbatdau == 1 && timthaytuanketthuc == 0 && rowData[0]!=null){
+                        var tableRow = document.createElement("tr");
+
+                        for (var j = 0; j < 6; j++) {
+                            var tableData = document.createElement("td");
+                            tableData.textContent = rowData[j];
+                            tableRow.appendChild(tableData);
+                        }
+
+                        dataTableBody.appendChild(tableRow);
+                    }
+
+                    // Kiểm tra nếu ô chứa chuỗi "Tuần 1"
+                    if (rowData[1].toLowerCase().includes(targetCell1.toLowerCase())) {
+                        address1 = String.fromCharCode(65 + 1) + (i + startRow);
+                        document.getElementById("targetCellAddress1").innerHTML = "Địa chỉ ô chứa chuỗi '" + targetCell1+"': " + address1;
+                        timthaytuanbatdau=1;
+                    }
+
+                    // Kiểm tra nếu ô chứa chuỗi "Tuần 2"
+                    if (rowData[1].toLowerCase().includes(targetCell2.toLowerCase())) {
+                        address2 = String.fromCharCode(65 + 1) + (i + startRow);
+                        document.getElementById("targetCellAddress2").innerHTML = "Địa chỉ ô chứa chuỗi '" + targetCell2+"': " + address2;
+                        timthaytuanketthuc=1;
+                    }
+                }
+                
+            });
+
+        
+
+
+        });
+    </script>
+</body>
+</html>
