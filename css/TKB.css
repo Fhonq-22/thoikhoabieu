@@ -1,0 +1,50 @@
+@import url('base.css');
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+h1 {
+    text-align: center;
+    margin: 20px;
+    color: var(--max-green);
+}
+form{
+    text-align: center;
+    margin: 20px;
+    color: var(--min-green);
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.square {
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(to bottom right, var(--max-blue), var(--min-pink));
+    margin: 20px;
+    cursor: pointer;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+/*    display: flex;  Thêm thuộc tính display flex */
+    align-items: center; /* Căn giữa theo chiều dọc */
+    justify-content: center; /* Căn giữa theo chiều ngang */
+    border-radius: 10%;
+
+}
+
+.square i {
+    font-size: 40px;
+    color: var(--min-blue);
+}
+
+.square span {
+    color: var(--max-pink);
+}
