@@ -1,6 +1,7 @@
 # Thời khoá biểu
 
 Đây là dự án thời khoá biểu, nơi bạn có thể tải lên và xem thời khoá biểu từ một tệp Excel.
+[Thử tại đây](https://fhonq-22.github.io/thoikhoabieu/TKB.html)
 
 ## Cách sử dụng
 
